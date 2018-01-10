@@ -13,7 +13,6 @@ $('#submit-js').on('click', post);
 $('#href-js').on('click', post);
 $('#logout-js').on('click', logout);
 
-
 sessionActive();
 function logout() {
   firebase.auth().signOut()
@@ -71,9 +70,9 @@ function postUser(userId, content) {
   });
 }
 
-recoverUserData();
+recoverUserPost();
 
-function recoverUserData() {
+function recoverUserPost() {
   firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
       var ref = firebase.database().ref('users/' + user.uid + '/' + 'posts');

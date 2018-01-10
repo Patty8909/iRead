@@ -4,19 +4,60 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="../vendors/semantic/semantic.min.css">
-  <link rel="stylesheet" href="../vendors/css/flexboxgrid.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <link rel="stylesheet" href="../css/main.css">
   <title>sign up</title>
 </head>
 
 <body>
-  <section id="app">
-    <p id="name-js"></p>
-    <img id="photoUrl-js" src="" alt="">
-    <button id="logout-js">Salir</button>
-  </section>
-  
+
+  <header id="app">
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+            aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">iRead</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+          </ul>
+          <form class="navbar-form navbar-left">
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="Search">
+            </div>
+          </form>
+          <ul class="nav navbar-nav navbar-right">
+            <li>
+              <a id="name-js"></a>
+            </li>
+            <li>
+              <img id="photoUrl-js" src="" alt="" class="img-profile">
+            </li>
+            <li>
+              <a id="logout-js">cerrar sesion</a>
+            </li>
+          </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+      </div>
+      <!-- /.container-fluid -->
+    </nav>
+
+  </header>
+
+
+
+
+
   <section>
     <form action="">
       <textarea name="" id="content-post-js" cols="30" rows="10"></textarea>
@@ -24,7 +65,7 @@
     </form>
   </section>
   <section id="all-post-js">
-    
+
   </section>
   <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
   <script src="https://www.gstatic.com/firebasejs/4.8.1/firebase.js"></script>

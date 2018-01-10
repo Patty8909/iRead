@@ -8,6 +8,9 @@ var config = {
 };
 firebase.initializeApp(config);
 
+//eventos
+/* $('#submit-js').on('click', post); */
+
 sessionActive();
 
 $('#logout-js').on('click', logout);
@@ -43,6 +46,31 @@ function writeUserData(userId, name, email, imageUrl) {
   firebase.database().ref('users/' + userId).set({
     username: name,
     email: email,
-    profile_picture : imageUrl
+    profile_picture: imageUrl
   });
+}
+
+
+$('#submit-js').on('click', post);
+
+function post(event) {
+  event.preventDefault();
+  var $content = $('#content-post-js').val();
+  firebase.auth().onAuthStateChanged(function (user) {
+    if (user) {
+      postUser(user.uid, $content);
+      $('#content-post-js').val('');
+      $('#content-post-js').focus();
+    }
+  });
+}
+
+function postUser(userId, content) {
+  event.preventDefault();
+  var postsRef = firebase.database().ref('users/'+ userId).child("posts");
+  var newPostRef = postsRef.push();
+  newPostRef.set({
+    content: content
+  });
+
 }

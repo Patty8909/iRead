@@ -8,7 +8,13 @@ var config = {
 };
 firebase.initializeApp(config);
 
-alert('s');
+alert('Amigo');
+var db = firebaseAdmin.database();
+
+var ref = db.ref("users");
+ref.orderByChild("height").on("child_added", function(snapshot) {
+  console.log(snapshot.key + " was " + snapshot.val().height + " meters tall");
+});
 
 // Get a reference to the database service
 

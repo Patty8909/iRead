@@ -28,12 +28,21 @@ function sessionActive() {
     if (user) {
       console.log('sesion activa de newsfeed');
       name = user.displayName;
-      email = user.email;
       photoUrl = user.photoURL;
       $('#name-js').text(name);
       $('#photoUrl-js').attr("src", photoUrl);
+      console.log(user);
+      writeUserData(user.uid, name, user.email, photoUrl)
     } else {
       location.href = "../";
     }
+  });
+}
+
+function writeUserData(userId, name, email, imageUrl) {
+  firebase.database().ref('users/' + userId).set({
+    username: name,
+    email: email,
+    profile_picture : imageUrl
   });
 }

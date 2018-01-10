@@ -54,18 +54,19 @@ function post(event) {
   var $content = $('#content-post-js').val();
   firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
-      postUser(user.uid, $content);
+      writeUserPost(user.uid, user.displayName, $content);
       $('#content-post-js').val('');
       $('#content-post-js').focus();
     }
   });
 }
 
-function postUser(userId, content) {
-  event.preventDefault();
-  var postsRef = firebase.database().ref('users/' + userId).child("posts");
+function writeUserPost(userId, name, content) {
+  var ref = firebase.database().ref('users/' + userId);
+  var postsRef = ref.child("posts");
   var newPostRef = postsRef.push();
   newPostRef.set({
+    author: name,
     content: content
   });
 }
@@ -75,8 +76,9 @@ recoverUserPost();
 function recoverUserPost() {
   firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
-      var ref = firebase.database().ref('users/' + user.uid + '/' + 'posts');
+      var ref = firebase.database().ref('users/' + user.uid).child("posts");
       ref.orderByChild("content").on("child_added", function (snapshot) {
+        //console.log(snapshot.val().content);
         $('#all-post-js').append('<div><p>' + user.displayName + '</p>' + '<p>' + snapshot.val().content + '</p')
       });
     }

@@ -9,12 +9,12 @@ var config = {
 firebase.initializeApp(config);
 
 //eventos
-/* $('#submit-js').on('click', post); */
-
-sessionActive();
-
+$('#submit-js').on('click', post);
+$('#href-js').on('click', post);
 $('#logout-js').on('click', logout);
 
+
+sessionActive();
 function logout() {
   firebase.auth().signOut()
     .then(function (result) {
@@ -50,9 +50,6 @@ function writeUserData(userId, name, email, imageUrl) {
   });
 }
 
-
-$('#submit-js').on('click', post);
-
 function post(event) {
   event.preventDefault();
   var $content = $('#content-post-js').val();
@@ -67,10 +64,22 @@ function post(event) {
 
 function postUser(userId, content) {
   event.preventDefault();
-  var postsRef = firebase.database().ref('users/'+ userId).child("posts");
+  var postsRef = firebase.database().ref('users/' + userId).child("posts");
   var newPostRef = postsRef.push();
   newPostRef.set({
     content: content
   });
+}
 
+recoverUserData();
+
+function recoverUserData() {
+  firebase.auth().onAuthStateChanged(function (user) {
+    if (user) {
+      var ref = firebase.database().ref('users/' + user.uid + '/' + 'posts');
+      ref.orderByChild("content").on("child_added", function (snapshot) {
+        $('#all-post-js').append('<div><p>' + user.displayName + '</p>' + '<p>' + snapshot.val().content + '</p')
+      });
+    }
+  });
 }
